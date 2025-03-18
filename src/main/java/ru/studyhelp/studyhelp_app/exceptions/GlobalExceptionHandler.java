@@ -10,21 +10,12 @@ import java.util.Date;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
-    @ExceptionHandler(TopicNotFoundException.class)
-    public ResponseEntity<ErrorObject> handlePokemonNotFoundException(TopicNotFoundException ex, WebRequest request) {
+    @ExceptionHandler(ApplicationException.class)
+    public ResponseEntity<ErrorObject> handleApplicationException(ApplicationException ex, WebRequest request) {
         ErrorObject errorObject = new ErrorObject();
-        errorObject.setStatusCode(HttpStatus.NOT_FOUND.value());
+        errorObject.setStatusCode(ex.getDiscriptor().getHttpStatus().value());
         errorObject.setMassage(ex.getMessage());
         errorObject.setTimestamp(new Date());
-        return new ResponseEntity<ErrorObject>(errorObject, HttpStatus.NOT_FOUND);
-    }
-
-    @ExceptionHandler(QuestionNotFoundException.class)
-    public ResponseEntity<ErrorObject> handlePokemonNotFoundException(QuestionNotFoundException ex, WebRequest request) {
-        ErrorObject errorObject = new ErrorObject();
-        errorObject.setStatusCode(HttpStatus.NOT_FOUND.value());
-        errorObject.setMassage(ex.getMessage());
-        errorObject.setTimestamp(new Date());
-        return new ResponseEntity<ErrorObject>(errorObject, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<ErrorObject>(errorObject, ex.getDiscriptor().getHttpStatus());
     }
 }

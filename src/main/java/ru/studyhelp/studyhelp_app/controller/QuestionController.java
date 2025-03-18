@@ -1,25 +1,18 @@
 package ru.studyhelp.studyhelp_app.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.studyhelp.studyhelp_app.dto.QuestionDto;
 import ru.studyhelp.studyhelp_app.dto.QuestionResponse;
 import ru.studyhelp.studyhelp_app.service.QuestionService;
-import ru.studyhelp.studyhelp_app.service.TopicService;
 
-import java.util.List;
-
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/v1/")
 public class QuestionController {
-    private QuestionService questionService;
-
-    @Autowired
-    public QuestionController(QuestionService questionService, TopicService topicService) {
-        this.questionService = questionService;
-    }
+    private final QuestionService questionService;
 
     @GetMapping("questions")
     public ResponseEntity<QuestionResponse> getQuestions(

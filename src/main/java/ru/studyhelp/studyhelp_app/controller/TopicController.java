@@ -1,6 +1,6 @@
 package ru.studyhelp.studyhelp_app.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -8,17 +8,11 @@ import ru.studyhelp.studyhelp_app.dto.TopicDto;
 import ru.studyhelp.studyhelp_app.dto.TopicResponse;
 import ru.studyhelp.studyhelp_app.service.TopicService;
 
-import java.util.List;
-
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/v1/topics")
 public class TopicController {
-    private TopicService topicService;
-
-    @Autowired
-    public TopicController(TopicService topicService) {
-        this.topicService = topicService;
-    }
+    private final TopicService topicService;
 
     @GetMapping()
     public ResponseEntity<TopicResponse> getTopics(
